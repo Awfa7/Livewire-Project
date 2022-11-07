@@ -19,8 +19,25 @@
 </head>
 
 <body class="flex flex-wrap justify-center">
-    <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
-        <a class="mx-3 py-4" href="/">Home</a>
+    <div class="flex w-full justify-between px-4 bg-indigo-500 text-white">
+        <div class="py-4">
+            <a class="mx-3 py-4 px-6 {{ request()->routeIs('home') ? 'bg-indigo-600' : '' }}" href="/">Home</a>
+            @auth
+                <a class="mx-3 py-4 px-6 {{ request()->routeIs('comment-ticket') ? 'bg-indigo-600' : '' }}"
+                    href="/comment-ticket">Comment-Ticket</a>
+                <a class="mx-3 py-4 px-6 {{ request()->routeIs('counter') ? 'bg-indigo-600' : '' }}"
+                    href="/counter">Counter</a>
+                <a class="mx-3 py-4 px-6 {{ request()->routeIs('calculator') ? 'bg-indigo-600' : '' }}"
+                    href="/calculator">Calculator</a>
+                <a class="mx-3 py-4 px-6 {{ request()->routeIs('todoList') ? 'bg-indigo-600' : '' }}"
+                    href="/todoList">TodoList</a>
+                <a class="mx-3 py-4 px-6 {{ request()->routeIs('cascading-dropdown') ? 'bg-indigo-600' : '' }}"
+                    href="/cascading-dropdown">Cascading dropdown</a>
+                <a class="mx-3 py-4 px-6 {{ request()->routeIs('products') ? 'bg-indigo-600' : '' }}"
+                    href="/products">Product Search</a>
+            @endauth
+        </div>
+
         @auth
             <livewire:logout />
         @endauth

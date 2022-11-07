@@ -8,7 +8,16 @@ use Livewire\Component;
 class Tickets extends Component
 {
 
+    protected $oldestTicket;
     public $active;
+
+    public function __construct()
+    {
+        $this->oldestTicket = SupportTicket::oldest('id')->first();
+        if($this->oldestTicket){
+            $this->active = $this->oldestTicket->id;
+        }
+    }
 
     protected $listeners = ['ticketSelected'];
 

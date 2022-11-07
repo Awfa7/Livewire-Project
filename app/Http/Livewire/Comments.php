@@ -3,11 +3,14 @@
 namespace App\Http\Livewire;
 
 use App\Models\Comment;
+use App\Models\SupportTicket;
 use Intervention\Image\ImageManagerStatic;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isNull;
 
 class Comments extends Component
 {
@@ -16,7 +19,18 @@ class Comments extends Component
 
     public $newComment;
     public $image;
+
+    protected $oldestTicket;
     public $ticketId;
+
+    public function __construct()
+    {
+        $this->oldestTicket = SupportTicket::oldest('id')->first();
+        if($this->oldestTicket){
+            $this->ticketId = $this->oldestTicket->id;
+        }
+    }
+
 
     protected $listeners = [
         'fileUpload'     => 'handleFileUpload',
@@ -42,7 +56,7 @@ class Comments extends Component
         $this->validate(['newComment' => 'required|max:255']);
         $image = $this->storeImage();
         Comment::create([
-            'body' => $this->newComment, 'user_id' => 1,
+            'body' => $this->newComment, 'user_id' => auth()->id(),
             'image' => $image,
             'support_ticket_id' => $this->ticketId,
         ]);

@@ -2,6 +2,18 @@
     <section class="border rounded shadow-lg p-4 w-6/12 bg-gray-200">
         <h1 class="text-center text-3xl my-5">Login Time</h1>
         <hr>
+        <div>
+            @if (session()->has('message'))
+                <div class="p-3 bg-green-300 text-green-800 rounded shadow-sm">
+                    {{ session('message') }}
+                </div>
+            @elseif (session()->has('error'))
+                <div class="p-3 bg-red-300 text-red-800 rounded shadow-sm">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+        <hr>
         <form class="my-4" wire:submit.prevent="submit">
             <div class="flex justify-around my-8">
                 <div class="flex flex-wrap w-10/12">
